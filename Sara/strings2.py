@@ -1,0 +1,97 @@
+import datetime
+import sys
+sys.path.insert(0, "/lessons_pro/Sara/saravoice")
+import saravoice
+
+a=(datetime.datetime.today())
+#print (a)
+
+b = a.strftime("%Y-%m-%d--%H.%M")
+print(b)
+hour_now=b[12:14]
+minut_now=b[15:17]
+
+print(hour_now)
+print(minut_now)
+f = open('text.txt', 'w')
+if minut_now == "59" and hour_now=="02":
+    c ="просыпайся"
+else:
+    c="спи дальше "
+f.write(c)
+f.close()
+
+
+print (sys.path)
+
+
+
+
+"""
+def saravoice():
+    # Чтение вслух
+    import os
+    import regex as re
+    from pygame import mixer
+    import DateTime
+    import time
+    from gtts import gTTS
+
+    # Для того чтобы не возникало коллизий при удалении mp3 файлов
+    # заведем переменную mp3_nameold в которой будем хранить имя предыдущего mp3 файла
+    mp3_nameold='111'
+    mp3_name = "1.mp3"
+
+    # Инициализируем звуковое устройство
+    mixer.init()
+
+    # Открываем файл с текстом и по очереди читаем с него строки в ss
+    f = open("text.txt","r")
+    ss = f.readline()
+    while ss:
+        # Делим прочитанные строки на отдельные предложения
+        split_regex = re.compile(r'[.|!|?|…]')
+        sentences = filter(lambda t: t, [t.strip() for t in split_regex.split(ss)])
+
+        # Перебираем массив с предложениями
+        for x in sentences:
+            if(x!=""):
+                print(x)
+                # Эта строка отправляет предложение которое нужно озвучить гуглу
+                tts=gTTS(text=x, lang='ru')
+                # Получаем от гугла озвученное предложение в виде mp3 файла
+                tts.save(mp3_name)
+                # Проигрываем полученный mp3 файл
+                mixer.music.load(mp3_name)
+                mixer.music.play()
+                while mixer.music.get_busy():
+                    time.sleep(0.1)
+                # Если предыдущий mp3 файл существует удаляем его
+                # чтобы не захламлять папку с приложением кучей mp3 файлов
+                if(os.path.exists(mp3_nameold) and (mp3_nameold!="1.mp3")):
+                    os.remove(mp3_nameold)
+                mp3_nameold=mp3_name
+                # Формируем имя mp3 файла куда будет сохраняться озвученный текст текущего предложения
+                # В качестве имени файла используем текущие дату и время
+                now_time = DateTime.DateTime.now()
+                mp3_name = now_time.strftime("%d%m%Y%I%M%S")+".mp3"
+
+        # Читаем следующую порцию текста из файла
+        ss = f.readline()
+
+    # Закрываем файл
+    f.close
+
+    # Устанвливаем текущим файлом 1.mp3 и закрываем звуковое устройство
+    # Это нужно чтобы мы могли удалить предыдущий mp3 файл без колизий
+    mixer.music.load('1.mp3')
+    mixer.stop
+    mixer.quit
+
+    # Удаляем последний предыдущий mp3 файл
+    if(os.path.exists(mp3_nameold)):
+        os.remove(mp3_nameold)
+
+        #https://pythono.ru/tts-python/ """
+
+saravoice()
